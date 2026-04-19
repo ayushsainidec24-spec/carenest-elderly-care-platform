@@ -69,6 +69,10 @@ Database:
 - SQLite / PostgreSQL
 
 ## Screenshots
+![Home](<img width="1713" height="999" alt="image" src="https://github.com/user-attachments/assets/8f1b4b1f-68f1-4936-bee3-334cf8b38829" />)
+![Dashboard](<img width="1713" height="1078" alt="image" src="https://github.com/user-attachments/assets/8ecc466b-d1f9-444e-b543-6982ca4a69ad" />)
+
+
 
 ## How to Run
 
