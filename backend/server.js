@@ -47,9 +47,15 @@ app.get("/test", (req, res) => {
 
 // If the frontend has been built, serve it from the backend so frontend + backend
 // run on the same port.
-const buildPath = path.join(__dirname, "..", "frontend", "build");
-console.log('buildPath', buildPath, 'exists?', fs.existsSync(buildPath));
-if (fs.existsSync(buildPath)) {
+const frontendDir = path.join(__dirname, "..", "frontend");
+const buildCandidates = [
+  path.join(__dirname, "..", "frontend-dist"),
+  path.join(frontendDir, "dist"),
+  path.join(frontendDir, "build"),
+];
+const buildPath = buildCandidates.find((candidate) => fs.existsSync(candidate));
+
+if (buildPath) {
   app.use(express.static(buildPath));
 
   // Serve index.html for any non-API GET request so React Router works.
