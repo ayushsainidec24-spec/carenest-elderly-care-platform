@@ -1,0 +1,434 @@
+.sos-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #26334d;
+}
+
+.sos-dashboard button {
+  font: inherit;
+}
+
+.sos-dashboard__hero {
+  position: relative;
+  padding: 22px 26px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 18%),
+    linear-gradient(135deg, #cb3838, #ba2f2f 60%, #ab2c2c);
+  box-shadow: 0 20px 38px rgba(191, 57, 57, 0.22);
+  overflow: hidden;
+}
+
+.sos-dashboard__hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at right center, rgba(255, 255, 255, 0.1), transparent 22%);
+  pointer-events: none;
+}
+
+.sos-dashboard__heroHeader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #ffffff;
+}
+
+.sos-dashboard__heroHeader h1,
+.sos-dashboard__panelHeader h2,
+.sos-dashboard__triggerContent h2 {
+  margin: 0;
+}
+
+.sos-dashboard__heroHeader h1 {
+  font-size: clamp(1.7rem, 2.1vw, 2rem);
+  font-weight: 800;
+}
+
+.sos-dashboard__heroHeader p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sos-dashboard__backButton,
+.sos-dashboard__actionRow,
+.sos-dashboard__callButton,
+.sos-dashboard__refresh,
+.sos-dashboard__sosButton {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.sos-dashboard__backButton:hover,
+.sos-dashboard__actionRow:hover,
+.sos-dashboard__callButton:hover,
+.sos-dashboard__refresh:hover,
+.sos-dashboard__sosButton:hover {
+  transform: translateY(-1px);
+}
+
+.sos-dashboard__backButton {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.sos-dashboard__panel {
+  padding: 22px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(214, 226, 244, 0.95);
+  box-shadow: 0 14px 28px rgba(40, 68, 121, 0.08);
+}
+
+.sos-dashboard__panel--trigger {
+  min-height: 290px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at center, rgba(255, 95, 95, 0.08), transparent 22%),
+    rgba(255, 255, 255, 0.98);
+}
+
+.sos-dashboard__triggerContent {
+  text-align: center;
+}
+
+.sos-dashboard__triggerContent h2 {
+  font-size: clamp(1.9rem, 2.6vw, 2.3rem);
+  color: #1e2b45;
+}
+
+.sos-dashboard__triggerContent p {
+  margin: 10px 0 28px;
+  color: #a2a8b5;
+  font-size: 1.05rem;
+}
+
+.sos-dashboard__sosButton {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: transparent;
+  padding: 0;
+}
+
+.sos-dashboard__sosButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.sos-dashboard__sosRing {
+  position: absolute;
+  inset: -42px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.1);
+  transition: transform 0.12s linear;
+}
+
+.sos-dashboard__sosButton--holding .sos-dashboard__sosRing {
+  background: rgba(239, 68, 68, 0.16);
+}
+
+.sos-dashboard__sosInner {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ff5353, #f13030 60%, #da2020);
+  box-shadow:
+    0 18px 35px rgba(239, 68, 68, 0.38),
+    inset 0 8px 12px rgba(255, 255, 255, 0.14);
+}
+
+.sos-dashboard__sosInner strong {
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+}
+
+.sos-dashboard__sosInner small {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.sos-dashboard__feedback {
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(214, 226, 244, 0.95);
+  color: #35517d;
+  font-weight: 600;
+}
+
+.sos-dashboard__panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.sos-dashboard__panelHeader h2 {
+  font-size: 1.4rem;
+  color: #202b42;
+}
+
+.sos-dashboard__panelPill {
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: #f2f5fb;
+  color: #62789f;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.sos-dashboard__actionList,
+.sos-dashboard__contacts,
+.sos-dashboard__history {
+  display: flex;
+  flex-direction: column;
+}
+
+.sos-dashboard__actionRow,
+.sos-dashboard__contactRow,
+.sos-dashboard__historyItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 6px;
+  background: transparent;
+}
+
+.sos-dashboard__actionRow {
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid #f0f3f9;
+}
+
+.sos-dashboard__actionRow:last-child,
+.sos-dashboard__contactRow:last-child,
+.sos-dashboard__historyItem:last-child {
+  border-bottom: none;
+}
+
+.sos-dashboard__actionIcon,
+.sos-dashboard__contactIcon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  flex: 0 0 auto;
+}
+
+.sos-dashboard__actionIcon--green,
+.sos-dashboard__contactIcon--green {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.sos-dashboard__actionIcon--blue,
+.sos-dashboard__contactIcon--blue {
+  color: #5b8ff9;
+  background: rgba(91, 143, 249, 0.1);
+}
+
+.sos-dashboard__actionIcon--purple,
+.sos-dashboard__contactIcon--purple {
+  color: #a855f7;
+  background: rgba(168, 85, 247, 0.1);
+}
+
+.sos-dashboard__actionIcon--yellow,
+.sos-dashboard__contactIcon--yellow {
+  color: #d4a017;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.sos-dashboard__actionText {
+  flex: 1;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #31415f;
+}
+
+.sos-dashboard__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 20px;
+}
+
+.sos-dashboard__contactRow {
+  border-bottom: 1px solid #f0f3f9;
+}
+
+.sos-dashboard__contactInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sos-dashboard__contactInfo strong,
+.sos-dashboard__contactInfo span,
+.sos-dashboard__historyItem strong,
+.sos-dashboard__historyItem span {
+  display: block;
+}
+
+.sos-dashboard__contactInfo strong {
+  font-size: 1.05rem;
+  color: #283550;
+  margin-bottom: 4px;
+}
+
+.sos-dashboard__contactInfo span {
+  color: #9aa8bf;
+}
+
+.sos-dashboard__callButton,
+.sos-dashboard__refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.sos-dashboard__callButton {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #27cd5f, #18bf56);
+  color: #ffffff;
+  box-shadow: 0 12px 22px rgba(24, 191, 86, 0.18);
+}
+
+.sos-dashboard__refresh {
+  padding: 9px 14px;
+  background: #edf4ff;
+  color: #3160ae;
+}
+
+.sos-dashboard__statusCard {
+  padding: 18px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #fff6f6, #fffdfd);
+  border: 1px solid rgba(252, 209, 209, 0.9);
+}
+
+.sos-dashboard__statusLabel {
+  display: block;
+  margin-bottom: 10px;
+  color: #93a0b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.sos-dashboard__statusCard strong,
+.sos-dashboard__statusMeta strong {
+  display: block;
+  color: #273350;
+  font-size: 1.1rem;
+}
+
+.sos-dashboard__statusCard p {
+  margin: 10px 0 0;
+  color: #70819e;
+  line-height: 1.6;
+}
+
+.sos-dashboard__statusMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.sos-dashboard__statusMeta > div {
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: #f6f9fe;
+  border: 1px solid rgba(217, 228, 245, 0.92);
+}
+
+.sos-dashboard__historyItem {
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.sos-dashboard__historyItem strong {
+  margin-bottom: 6px;
+  color: #33415f;
+}
+
+.sos-dashboard__historyItem span {
+  color: #8191ab;
+  line-height: 1.55;
+}
+
+.sos-dashboard__placeholder {
+  margin: 0;
+  color: #8e9db5;
+  line-height: 1.6;
+}
+
+@media (max-width: 960px) {
+  .sos-dashboard__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .sos-dashboard__panelHeader,
+  .sos-dashboard__heroHeader,
+  .sos-dashboard__contactRow,
+  .sos-dashboard__actionRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sos-dashboard__statusMeta {
+    grid-template-columns: 1fr;
+  }
+
+  .sos-dashboard__callButton {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .sos-dashboard__hero,
+  .sos-dashboard__panel {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .sos-dashboard__triggerContent h2 {
+    font-size: 1.55rem;
+  }
+
+  .sos-dashboard__sosButton {
+    width: 138px;
+    height: 138px;
+  }
+}

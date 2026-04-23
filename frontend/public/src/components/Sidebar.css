@@ -1,0 +1,153 @@
+:root {
+  --sidebar-bg: #1b3d80;
+  --sidebar-accent: #3157b0;
+  --sidebar-text: #fff;
+  --sidebar-muted: rgba(255, 255, 255, 0.75);
+  --sidebar-active: rgba(255, 255, 255, 0.18);
+}
+
+.sidebar {
+  width: 270px;
+  padding: 24px 16px;
+  background: linear-gradient(180deg, var(--sidebar-bg), #0f2b60);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sidebar__brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sidebar__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: white;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.sidebar__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sidebar__title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.sidebar__subtitle {
+  font-size: 0.75rem;
+  color: var(--sidebar-muted);
+}
+
+.sidebar__section {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: var(--sidebar-muted);
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar__link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  font-weight: 600;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.sidebar__link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar__link--active {
+  background: var(--sidebar-active);
+}
+
+.sidebar__link[href="/sos"].sidebar__link--active {
+  background: linear-gradient(135deg, #ff6767, #ef4444);
+  box-shadow: 0 10px 22px rgba(239, 68, 68, 0.24);
+}
+
+.sidebar__link[href="/sos"].sidebar__link--active .sidebar__icon {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.sidebar__link[href="/family"].sidebar__link--active {
+  background: linear-gradient(135deg, #a978ff, #8b5cf6);
+  box-shadow: 0 10px 22px rgba(139, 92, 246, 0.24);
+}
+
+.sidebar__link[href="/family"].sidebar__link--active .sidebar__icon {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.sidebar__link[href="/medication"].sidebar__link--active {
+  background: linear-gradient(135deg, #ffbf39, #ffa31a);
+  box-shadow: 0 10px 22px rgba(255, 163, 26, 0.24);
+}
+
+.sidebar__link[href="/medication"].sidebar__link--active .sidebar__icon {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.sidebar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sidebar__icon img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.sidebar__chevron {
+  opacity: 0.65;
+}
+
+@media (max-width: 860px) {
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
+    overflow-x: auto;
+  }
+  .sidebar__nav {
+    flex-direction: row;
+  }
+  .sidebar__link {
+    padding: 10px;
+  }
+  .sidebar__section {
+    display: none;
+  }
+}

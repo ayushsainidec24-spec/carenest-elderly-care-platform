@@ -1,0 +1,1200 @@
+:root {
+  --bg: #f1f4ff;
+  --bg-2: #e6f0ff;
+  --card: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --primary: #0d47a1;
+  --primary-2: #1976d2;
+  --text: #1a1a1a;
+  --muted: #5f6368;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  background: linear-gradient(135deg, var(--bg), var(--bg-2));
+  color: var(--text);
+}
+
+header {
+  background: linear-gradient(90deg, var(--primary), var(--primary-2));
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+main {
+  padding: 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.card--light {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  padding: 20px;
+}
+
+.card__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1f2937;
+}
+
+.card__title span:first-child {
+  font-size: 1.25rem;
+}
+
+.card__value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.card__status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.card__status--normal {
+  background: rgba(56, 189, 248, 0.18);
+  color: #0369a1;
+}
+
+.card__status--high {
+  background: rgba(248, 113, 113, 0.18);
+  color: #b91c1c;
+}
+
+.card__status--watch {
+  background: rgba(234, 179, 8, 0.18);
+  color: #b45309;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard__top {
+  padding: 22px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.92), rgba(37, 99, 235, 0.92));
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard__top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.18), transparent 60%);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.dashboard__top > * {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard__profile {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.dashboard__avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(5, 20, 56, 0.28);
+}
+
+.dashboard__avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dashboard__greeting {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  color: #ffffff;
+}
+
+.dashboard__name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 2px;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
+}
+
+.dashboard__role {
+  font-size: 0.85rem;
+  opacity: 0.95;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.dashboard__meta {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dashboard__metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.13);
+  font-size: 0.9rem;
+}
+
+.dashboard__metaIcon {
+  font-size: 1rem;
+}
+
+.dashboard__calendarButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dashboard__calendarButton:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.dashboard__calendarButtonEmoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.dashboard__miniCalendar {
+  margin-left: auto;
+  max-width: 440px;
+  width: 100%;
+  border-radius: 24px;
+  background: white;
+  color: #1f2a37;
+  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.12);
+  padding: 22px;
+}
+
+.dashboard__miniCalendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.dashboard__calendarClose {
+  border: none;
+  background: transparent;
+  color: #1f2a37;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dashboard__miniCalendarGrid {
+  gap: 8px;
+}
+
+.dashboard__miniCalendar .dashboard__calendarCell {
+  min-height: 34px;
+  border-radius: 12px;
+}
+
+.dashboard__miniCalendar .dashboard__calendarCell--today {
+  box-shadow: 0 10px 22px rgba(37, 211, 102, 0.24);
+}
+
+.dashboard__notify {
+  position: relative;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 12px 14px;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.dashboard__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #f87171;
+  color: white;
+  font-size: 0.7rem;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.dashboard__section {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 28px;
+  padding: 22px;
+}
+
+.dashboard__section--health {
+  background: rgba(248, 250, 252, 0.95);
+}
+
+.dashboard__calendarCard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(235, 245, 255, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+}
+
+.dashboard__calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.dashboard__calendarHeader h2 {
+  margin: 4px 0 0;
+  color: #15396c;
+  font-size: 1.4rem;
+}
+
+.dashboard__calendarEyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4f7aa9;
+}
+
+.dashboard__calendarToday {
+  min-width: 92px;
+  padding: 14px 18px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #2563eb, #15396c);
+  color: white;
+  text-align: center;
+  box-shadow: 0 14px 26px rgba(37, 99, 235, 0.24);
+}
+
+.dashboard__calendarToday strong {
+  display: block;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.dashboard__calendarToday span {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.dashboard__calendarWeekdays,
+.dashboard__calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dashboard__calendarWeekdays {
+  margin-bottom: 10px;
+}
+
+.dashboard__calendarWeekdays span {
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #6b7c93;
+}
+
+.dashboard__calendarCell {
+  min-height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.82);
+  color: #1f2a37;
+  font-weight: 700;
+  border: 1px solid rgba(203, 213, 225, 0.72);
+}
+
+.dashboard__calendarCell--today {
+  background: linear-gradient(135deg, #25d366, #179e4a);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 10px 22px rgba(37, 211, 102, 0.24);
+}
+
+.dashboard__calendarCell--empty {
+  background: rgba(255, 255, 255, 0.42);
+  border-style: dashed;
+}
+
+.dashboard__sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.dashboard__sectionHeader h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+.dashboard__cards {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.health-card {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 145px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.health-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.health-card__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+
+.health-card__title {
+  font-size: 0.95rem;
+  color: #475569;
+  font-weight: 700;
+}
+
+.dashboard__healthHeading {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e3a5f;
+}
+
+.dashboard__healthGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard__metricCard {
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  padding: 18px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.dashboard__metricTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.dashboard__metricIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 76, 129, 0.08);
+  color: #0f4c81;
+}
+
+.dashboard__metricIconImage {
+  width: 22px;
+  height: 22px;
+}
+
+.dashboard__metricIcon--blue {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.dashboard__metricIcon--heart {
+  color: #d6453d;
+  background: rgba(214, 69, 61, 0.12);
+}
+
+.dashboard__metricIcon--glucose {
+  color: #c97b22;
+  background: rgba(245, 158, 11, 0.14);
+}
+
+.dashboard__metricIcon--temperature {
+  color: #4b5b8c;
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.dashboard__metricBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.dashboard__metricBadge--high {
+  color: #7a2c23;
+  background: rgba(229, 115, 115, 0.2);
+  border: 1px solid rgba(229, 115, 115, 0.4);
+}
+
+.dashboard__metricBadge--normal {
+  color: #1f6f3f;
+  background: rgba(100, 200, 120, 0.2);
+  border: 1px solid rgba(100, 200, 120, 0.4);
+}
+
+.dashboard__metricBadge--watch {
+  color: #915c16;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.dashboard__metricLabel {
+  font-size: 0.92rem;
+  color: #475569;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.dashboard__metricReading {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.dashboard__metricValue {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1f2a37;
+}
+
+.dashboard__metricUnit {
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+@media (max-width: 720px) {
+  .dashboard__healthGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard__calendarHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.health-card__value {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.health-card__unit {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.health-card__status {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.health-card__status--high {
+  background: rgba(248, 113, 113, 0.16);
+  color: #b91c1c;
+}
+
+.health-card__status--normal {
+  background: rgba(34, 197, 94, 0.18);
+  color: #15803d;
+}
+
+.health-card__status--watch {
+  background: rgba(251, 191, 36, 0.18);
+  color: #92400e;
+}
+
+@media (max-width: 768px) {
+  .health-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard__quick {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.dashboard__nextBooking {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.dashboard__nextBooking h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+}
+
+.dashboard__nextBooking p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  padding: 18px;
+  text-decoration: none;
+  color: white;
+  min-height: 140px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.quick-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.18);
+}
+
+.quick-card__icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.quick-card__text {
+  font-weight: 700;
+}
+
+.quick-card--green {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.quick-card--blue {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.quick-card--red {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.quick-card--purple {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+}
+
+.dashboard__viewAll {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 860px) {
+  .dashboard__top {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .dashboard__meta {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.button.secondary {
+  background: rgba(13, 71, 161, 0.12);
+  color: var(--primary);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  font-size: 0.95rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+ul.card-list {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+ul.card-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+ul.card-list li:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  header h1 {
+    margin-bottom: 12px;
+  }
+}
+
+.telemedicine {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.telemedicine__hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 24px;
+  color: white;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 35%),
+    linear-gradient(135deg, #0f4aa3, #0d47a1 55%, #0f766e);
+  box-shadow: 0 18px 36px rgba(8, 36, 89, 0.22);
+}
+
+.telemedicine__hero h2,
+.telemedicine__setupCard h3,
+.telemedicine__endedCard h3,
+.telemedicine__tips h4 {
+  margin: 0;
+}
+
+.telemedicine__hero p,
+.telemedicine__setupCard p,
+.telemedicine__endedCard p,
+.telemedicine__tips p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.telemedicine__eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.telemedicine__heroBadge {
+  min-width: 150px;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.telemedicine__heroBadge strong {
+  font-size: 1.9rem;
+}
+
+.telemedicine__heroBadge span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.telemedicine__setupCard,
+.telemedicine__sideCard,
+.telemedicine__endedCard {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+}
+
+.telemedicine__setupCard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.telemedicine__setupCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.telemedicine__setupGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.telemedicine__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.telemedicine__field span {
+  font-weight: 700;
+  color: #15396c;
+}
+
+.telemedicine__field input {
+  width: 100%;
+  margin: 0;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 76, 129, 0.16);
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.telemedicine__setupFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.telemedicine__whatsappButton,
+.telemedicine__secondaryButton,
+.telemedicine__dangerButton,
+.telemedicine__controlButton {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.telemedicine__whatsappButton:disabled,
+.telemedicine__secondaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.telemedicine__whatsappButton:hover,
+.telemedicine__secondaryButton:hover,
+.telemedicine__dangerButton:hover,
+.telemedicine__controlButton:hover {
+  transform: translateY(-1px);
+}
+
+.telemedicine__whatsappButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #25d366, #1faa52);
+  color: white;
+  font-weight: 800;
+  box-shadow: 0 18px 28px rgba(37, 211, 102, 0.28);
+}
+
+.telemedicine__whatsappIcon {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 1rem;
+}
+
+.telemedicine__privacyNote {
+  max-width: 440px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.telemedicine__error {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(254, 242, 242, 0.95);
+  color: #b91c1c;
+  border: 1px solid rgba(248, 113, 113, 0.28);
+}
+
+.telemedicine__callLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.9fr);
+  gap: 20px;
+}
+
+.telemedicine__videoStage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.telemedicine__stageHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  color: #16325c;
+}
+
+.telemedicine__stageTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.telemedicine__stageStatus,
+.telemedicine__roomLabel,
+.telemedicine__sideHeader span {
+  color: var(--muted);
+}
+
+.telemedicine__stageTimer {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 76, 129, 0.08);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.telemedicine__remoteFrame {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #15315e, #08111f);
+  box-shadow: 0 22px 40px rgba(8, 17, 31, 0.28);
+}
+
+.telemedicine__remoteVideo,
+.telemedicine__localVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #08111f;
+}
+
+.telemedicine__remotePlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: white;
+  background: linear-gradient(180deg, rgba(8, 17, 31, 0.2), rgba(8, 17, 31, 0.7));
+}
+
+.telemedicine__remotePlaceholder img {
+  width: 96px;
+  height: 96px;
+  padding: 18px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.telemedicine__remotePlaceholder span {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.telemedicine__localPreview {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 220px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 18px 30px rgba(8, 17, 31, 0.28);
+  background: #08111f;
+}
+
+.telemedicine__localOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: rgba(8, 17, 31, 0.55);
+  font-weight: 700;
+}
+
+.telemedicine__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.telemedicine__controlButton,
+.telemedicine__secondaryButton,
+.telemedicine__dangerButton {
+  padding: 13px 16px;
+  border-radius: 16px;
+  font-weight: 700;
+}
+
+.telemedicine__controlButton {
+  background: white;
+  color: #16325c;
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.08);
+}
+
+.telemedicine__controlButton--active {
+  background: #15396c;
+  color: white;
+}
+
+.telemedicine__dangerButton {
+  background: #dc2626;
+  color: white;
+  box-shadow: 0 16px 24px rgba(220, 38, 38, 0.22);
+}
+
+.telemedicine__sideCard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.telemedicine__sideHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.telemedicine__sideHeader img,
+.telemedicine__endedCard img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: 0 14px 28px rgba(21, 57, 108, 0.14);
+}
+
+.telemedicine__sideHeader strong {
+  display: block;
+  color: #16325c;
+  margin-bottom: 4px;
+}
+
+.telemedicine__roomCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(15, 76, 129, 0.05);
+}
+
+.telemedicine__roomValue {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #16325c;
+  word-break: break-all;
+}
+
+.telemedicine__secondaryButton {
+  background: rgba(15, 76, 129, 0.12);
+  color: #15396c;
+}
+
+.telemedicine__tips {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.telemedicine__endedCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .telemedicine__callLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .telemedicine__remoteFrame {
+    min-height: 440px;
+  }
+}
+
+@media (max-width: 640px) {
+  .telemedicine__hero,
+  .telemedicine__stageHeader,
+  .telemedicine__setupFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .telemedicine__localPreview {
+    width: 150px;
+    height: 112px;
+    right: 12px;
+    top: 12px;
+  }
+
+  .telemedicine__remoteFrame {
+    min-height: 360px;
+  }
+}

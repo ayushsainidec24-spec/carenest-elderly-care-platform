@@ -1,0 +1,533 @@
+.family-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #26334d;
+}
+
+.family-dashboard button {
+  font: inherit;
+}
+
+.family-dashboard__hero {
+  position: relative;
+  padding: 22px 26px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 18%),
+    linear-gradient(135deg, #1e63c4, #1b57b9 60%, #184ca8);
+  box-shadow: 0 20px 40px rgba(26, 82, 177, 0.22);
+  overflow: hidden;
+}
+
+.family-dashboard__hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at right center, rgba(255, 255, 255, 0.08), transparent 22%);
+  pointer-events: none;
+}
+
+.family-dashboard__heroHeader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #ffffff;
+}
+
+.family-dashboard__heroHeader h1,
+.family-dashboard__patientMeta h2,
+.family-dashboard__sectionHeader h2 {
+  margin: 0;
+}
+
+.family-dashboard__heroHeader h1 {
+  font-size: clamp(1.7rem, 2.1vw, 2rem);
+  font-weight: 800;
+}
+
+.family-dashboard__heroHeader p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.family-dashboard__backButton,
+.family-dashboard__medicationButton,
+.family-dashboard__addMember,
+.family-dashboard__iconButton,
+.family-dashboard__alertRow,
+.family-dashboard__attention,
+.family-dashboard__saveMember {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.family-dashboard__backButton:hover,
+.family-dashboard__medicationButton:hover,
+.family-dashboard__addMember:hover,
+.family-dashboard__iconButton:hover,
+.family-dashboard__alertRow:hover,
+.family-dashboard__attention:hover,
+.family-dashboard__saveMember:hover {
+  transform: translateY(-1px);
+}
+
+.family-dashboard__backButton {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.family-dashboard__feedback {
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(214, 226, 244, 0.95);
+  color: #35517d;
+  font-weight: 600;
+}
+
+.family-dashboard__panel {
+  padding: 22px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(214, 226, 244, 0.95);
+  box-shadow: 0 14px 28px rgba(40, 68, 121, 0.08);
+}
+
+.family-dashboard__patientHeader,
+.family-dashboard__sectionHeader,
+.family-dashboard__vitalRow,
+.family-dashboard__memberRow,
+.family-dashboard__alertRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.family-dashboard__patientHeader {
+  margin-bottom: 18px;
+}
+
+.family-dashboard__patientMeta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.family-dashboard__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 14px 28px rgba(21, 57, 108, 0.14);
+}
+
+.family-dashboard__patientMeta h2 {
+  color: #243551;
+  font-size: 1.8rem;
+}
+
+.family-dashboard__patientMeta p {
+  margin: 6px 0 0;
+  color: #8999b1;
+}
+
+.family-dashboard__attention {
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.family-dashboard__attention--warning {
+  background: rgba(255, 247, 218, 0.95);
+  color: #d79a1a;
+}
+
+.family-dashboard__attention--safe {
+  background: rgba(229, 250, 238, 0.95);
+  color: #1f9254;
+}
+
+.family-dashboard__vitals,
+.family-dashboard__members,
+.family-dashboard__alerts {
+  display: flex;
+  flex-direction: column;
+}
+
+.family-dashboard__vitalRow,
+.family-dashboard__memberRow,
+.family-dashboard__alertRow {
+  padding: 18px 0;
+  border-bottom: 1px solid #eff3f9;
+}
+
+.family-dashboard__vitalRow:last-child,
+.family-dashboard__memberRow:last-child,
+.family-dashboard__alertRow:last-child {
+  border-bottom: none;
+}
+
+.family-dashboard__vitalLabel,
+.family-dashboard__memberInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.family-dashboard__vitalIcon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+.family-dashboard__vitalIcon--blue {
+  color: #5b8ff9;
+  background: rgba(91, 143, 249, 0.12);
+}
+
+.family-dashboard__vitalIcon--red {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.family-dashboard__vitalIcon--yellow {
+  color: #d4a017;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.family-dashboard__vitalLabel span:last-child,
+.family-dashboard__vitalValue strong,
+.family-dashboard__activityHead strong,
+.family-dashboard__memberInfo strong,
+.family-dashboard__alertText strong {
+  color: #293651;
+}
+
+.family-dashboard__vitalLabel span:last-child {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.family-dashboard__vitalValue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.family-dashboard__vitalValue strong {
+  font-size: 1.05rem;
+}
+
+.family-dashboard__badge,
+.family-dashboard__memberStatus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.family-dashboard__badge--red {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.family-dashboard__badge--yellow {
+  background: rgba(255, 243, 210, 0.95);
+  color: #d79a1a;
+}
+
+.family-dashboard__badge--green,
+.family-dashboard__memberStatus--green {
+  background: rgba(229, 250, 238, 0.95);
+  color: #1f9254;
+}
+
+.family-dashboard__memberStatus--blue {
+  background: rgba(233, 243, 255, 0.95);
+  color: #4a89f3;
+}
+
+.family-dashboard__medicationButton,
+.family-dashboard__saveMember {
+  margin-top: 18px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #26c756, #1fb84e);
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 16px 26px rgba(31, 184, 78, 0.2);
+}
+
+.family-dashboard__medicationButton:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.family-dashboard__sectionHeader {
+  margin-bottom: 14px;
+}
+
+.family-dashboard__sectionHeader h2 {
+  font-size: 1.35rem;
+  color: #243551;
+}
+
+.family-dashboard__sectionHeader span {
+  color: #4d85e6;
+  font-weight: 700;
+}
+
+.family-dashboard__chart {
+  width: 100%;
+}
+
+.family-dashboard__chart--activity {
+  margin-top: 10px;
+}
+
+.family-dashboard__legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.family-dashboard__legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9aa9c4;
+  font-size: 0.92rem;
+}
+
+.family-dashboard__legendDot {
+  width: 16px;
+  height: 3px;
+  border-radius: 999px;
+}
+
+.family-dashboard__legendDot--red {
+  background: #ef4444;
+}
+
+.family-dashboard__legendDot--blue {
+  background: #4a89f3;
+}
+
+.family-dashboard__activityHead {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.family-dashboard__activityHead strong {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.family-dashboard__activityHead span {
+  color: #a2aebf;
+  font-weight: 600;
+}
+
+.family-dashboard__progressTrack {
+  height: 12px;
+  width: 100%;
+  border-radius: 999px;
+  background: #edf1f6;
+  overflow: hidden;
+}
+
+.family-dashboard__progressFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2084d4, #1bd35c);
+}
+
+.family-dashboard__addMember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(77, 133, 230, 0.1);
+  color: #4d85e6;
+  font-weight: 800;
+}
+
+.family-dashboard__memberForm {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 18px 0 8px;
+}
+
+.family-dashboard__memberForm label {
+  margin: 0;
+  font-weight: 700;
+  color: #5d7499;
+}
+
+.family-dashboard__memberForm input {
+  margin-top: 10px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  border: 1px solid rgba(177, 197, 229, 0.9);
+  background: #f9fbff;
+}
+
+.family-dashboard__memberActions {
+  grid-column: 1 / -1;
+}
+
+.family-dashboard__memberAvatar {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff6da, #ffedba);
+  font-size: 1.1rem;
+}
+
+.family-dashboard__memberInfo span,
+.family-dashboard__alertText span {
+  display: block;
+  color: #9aa8bf;
+  margin-top: 4px;
+}
+
+.family-dashboard__memberActionsInline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.family-dashboard__iconButton {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.family-dashboard__iconButton--call {
+  background: rgba(229, 250, 238, 0.95);
+  color: #1f9254;
+}
+
+.family-dashboard__iconButton--message {
+  background: rgba(237, 244, 255, 0.95);
+  color: #4d85e6;
+}
+
+.family-dashboard__alertRow {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  padding: 16px 0;
+}
+
+.family-dashboard__alertIcon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.family-dashboard__alertIcon--danger {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.family-dashboard__alertIcon--success {
+  color: #1f9254;
+  background: rgba(229, 250, 238, 0.95);
+}
+
+.family-dashboard__alertIcon--neutral {
+  color: #4d85e6;
+  background: rgba(237, 244, 255, 0.95);
+}
+
+.family-dashboard__alertText {
+  flex: 1;
+}
+
+.family-dashboard__alertChevron {
+  color: #ccd5e5;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 980px) {
+  .family-dashboard__memberForm {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .family-dashboard__heroHeader,
+  .family-dashboard__patientHeader,
+  .family-dashboard__sectionHeader,
+  .family-dashboard__vitalRow,
+  .family-dashboard__memberRow,
+  .family-dashboard__alertRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .family-dashboard__vitalValue,
+  .family-dashboard__memberActionsInline {
+    width: 100%;
+  }
+
+  .family-dashboard__legend {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .family-dashboard__hero,
+  .family-dashboard__panel {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .family-dashboard__activityHead {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .family-dashboard__activityHead strong {
+    font-size: 2.35rem;
+  }
+}

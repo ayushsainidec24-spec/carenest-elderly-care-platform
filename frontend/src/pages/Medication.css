@@ -1,0 +1,568 @@
+.medication-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #26334d;
+}
+
+.medication-dashboard button {
+  font: inherit;
+}
+
+.medication-dashboard__hero {
+  position: relative;
+  padding: 22px 26px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 18%),
+    linear-gradient(135deg, #1e63c4, #1b57b9 60%, #184ca8);
+  box-shadow: 0 20px 40px rgba(26, 82, 177, 0.22);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.medication-dashboard__hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at right center, rgba(255, 255, 255, 0.08), transparent 22%);
+  pointer-events: none;
+}
+
+.medication-dashboard__heroHeader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #ffffff;
+}
+
+.medication-dashboard__heroHeader h1,
+.medication-dashboard__panel h2,
+.medication-dashboard__scheduleTitle h3 {
+  margin: 0;
+}
+
+.medication-dashboard__heroHeader h1 {
+  font-size: clamp(1.7rem, 2.1vw, 2rem);
+  font-weight: 800;
+}
+
+.medication-dashboard__heroHeader p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.medication-dashboard__backButton,
+.medication-dashboard__toggle,
+.medication-dashboard__day,
+.medication-dashboard__markAll,
+.medication-dashboard__check,
+.medication-dashboard__addButton,
+.medication-dashboard__saveButton,
+.medication-dashboard__upcomingRow,
+.medication-dashboard__seeAll {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.medication-dashboard__backButton:hover,
+.medication-dashboard__toggle:hover,
+.medication-dashboard__day:hover,
+.medication-dashboard__markAll:hover,
+.medication-dashboard__check:hover,
+.medication-dashboard__addButton:hover,
+.medication-dashboard__saveButton:hover,
+.medication-dashboard__upcomingRow:hover,
+.medication-dashboard__seeAll:hover {
+  transform: translateY(-1px);
+}
+
+.medication-dashboard__backButton {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.medication-dashboard__toggle {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 15px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.medication-dashboard__toggle--on {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.medication-dashboard__feedback,
+.medication-dashboard__loading {
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(214, 226, 244, 0.95);
+  color: #35517d;
+  font-weight: 600;
+}
+
+.medication-dashboard__panel {
+  padding: 22px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(214, 226, 244, 0.95);
+  box-shadow: 0 14px 28px rgba(40, 68, 121, 0.08);
+}
+
+.medication-dashboard__panel--progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.medication-dashboard__panel--progress p {
+  margin: 6px 0 18px;
+  color: #98a7be;
+}
+
+.medication-dashboard__progressTrack {
+  width: min(620px, 100%);
+  height: 16px;
+  border-radius: 999px;
+  background: #eef2f7;
+  overflow: hidden;
+}
+
+.medication-dashboard__progressFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2381d4, #31c35a);
+}
+
+.medication-dashboard__ring {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  flex: 0 0 auto;
+}
+
+.medication-dashboard__ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.medication-dashboard__ringBg,
+.medication-dashboard__ringValue {
+  fill: none;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 251.2;
+}
+
+.medication-dashboard__ringBg {
+  stroke: #e9eef7;
+}
+
+.medication-dashboard__ringValue {
+  stroke: #1976d2;
+}
+
+.medication-dashboard__ring span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1f4e8f;
+}
+
+.medication-dashboard__panel--days {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.medication-dashboard__days {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.medication-dashboard__day {
+  min-width: 56px;
+  padding: 12px 18px;
+  border-radius: 18px;
+  background: transparent;
+  color: #6d7f9e;
+  font-weight: 700;
+}
+
+.medication-dashboard__day span {
+  display: block;
+}
+
+.medication-dashboard__day i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin: 8px auto 0;
+  background: currentColor;
+}
+
+.medication-dashboard__day--active {
+  background: linear-gradient(135deg, #1e63c4, #184ca8);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(26, 82, 177, 0.2);
+}
+
+.medication-dashboard__schedule {
+  padding: 0;
+  overflow: hidden;
+}
+
+.medication-dashboard__scheduleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+}
+
+.medication-dashboard__scheduleHeader--morning {
+  background: linear-gradient(180deg, #fff9dd, #fffdf3);
+}
+
+.medication-dashboard__scheduleHeader--afternoon {
+  background: linear-gradient(180deg, #ecfff1, #f8fff9);
+}
+
+.medication-dashboard__scheduleHeader--night {
+  background: linear-gradient(180deg, #eef0ff, #f8f8ff);
+}
+
+.medication-dashboard__scheduleTitle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.medication-dashboard__scheduleIcon,
+.medication-dashboard__pillIcon,
+.medication-dashboard__upcomingIcon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  flex: 0 0 auto;
+}
+
+.medication-dashboard__scheduleIcon--morning,
+.medication-dashboard__upcomingIcon--morning {
+  color: #dca313;
+  background: rgba(255, 205, 86, 0.12);
+}
+
+.medication-dashboard__scheduleIcon--afternoon,
+.medication-dashboard__upcomingIcon--afternoon {
+  color: #27c55d;
+  background: rgba(39, 197, 93, 0.12);
+}
+
+.medication-dashboard__scheduleIcon--night,
+.medication-dashboard__upcomingIcon--night {
+  color: #7477ff;
+  background: rgba(116, 119, 255, 0.12);
+}
+
+.medication-dashboard__scheduleTitle h3 {
+  font-size: 1.4rem;
+  color: #243551;
+}
+
+.medication-dashboard__scheduleTitle p {
+  margin: 6px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #97a6bf;
+}
+
+.medication-dashboard__scheduleActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #9aa8bf;
+  font-weight: 700;
+}
+
+.medication-dashboard__markAll {
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.medication-dashboard__markAll--morning {
+  background: #ffb314;
+}
+
+.medication-dashboard__markAll--afternoon {
+  background: #27c55d;
+}
+
+.medication-dashboard__markAll--night {
+  background: #6366f1;
+}
+
+.medication-dashboard__items {
+  padding: 0 18px 8px;
+}
+
+.medication-dashboard__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 4px;
+  border-bottom: 1px solid #eff3f9;
+}
+
+.medication-dashboard__item:last-child {
+  border-bottom: none;
+}
+
+.medication-dashboard__itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.medication-dashboard__pillIcon--red {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.medication-dashboard__pillIcon--blue {
+  color: #5b8ff9;
+  background: rgba(91, 143, 249, 0.1);
+}
+
+.medication-dashboard__pillIcon--purple {
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.medication-dashboard__pillIcon--yellow {
+  color: #dca313;
+  background: rgba(255, 205, 86, 0.12);
+}
+
+.medication-dashboard__pillIcon--green {
+  color: #27c55d;
+  background: rgba(39, 197, 93, 0.12);
+}
+
+.medication-dashboard__itemInfo strong,
+.medication-dashboard__upcomingRow strong {
+  display: block;
+  color: #293651;
+  font-size: 1rem;
+}
+
+.medication-dashboard__itemInfo span,
+.medication-dashboard__itemInfo small,
+.medication-dashboard__upcomingRow span {
+  display: block;
+}
+
+.medication-dashboard__itemInfo span {
+  margin-top: 4px;
+  color: #98a7be;
+}
+
+.medication-dashboard__itemInfo small {
+  margin-top: 4px;
+  color: #6089d2;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.medication-dashboard__check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #ebedf3;
+  background: #ffffff;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.medication-dashboard__check--done {
+  border-color: #27c55d;
+  background: #27c55d;
+}
+
+.medication-dashboard__addWrap {
+  display: flex;
+}
+
+.medication-dashboard__addButton {
+  width: 100%;
+  padding: 18px;
+  border-radius: 24px;
+  border: 2px dashed #d8e4f8;
+  background: rgba(241, 247, 255, 0.58);
+  color: #4d85e6;
+  font-size: 1.4rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.medication-dashboard__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.medication-dashboard__form label {
+  margin: 0;
+  font-weight: 700;
+  color: #5d7499;
+}
+
+.medication-dashboard__form input {
+  width: 100%;
+  margin-top: 10px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  border: 1px solid rgba(177, 197, 229, 0.9);
+  background: #f9fbff;
+}
+
+.medication-dashboard__formActions {
+  grid-column: 1 / -1;
+}
+
+.medication-dashboard__saveButton {
+  width: 100%;
+  padding: 15px 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #1e63c4, #184ca8);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.medication-dashboard__saveButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.medication-dashboard__sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.medication-dashboard__seeAll {
+  background: transparent;
+  color: #4d85e6;
+  font-weight: 800;
+}
+
+.medication-dashboard__upcomingList {
+  display: flex;
+  flex-direction: column;
+}
+
+.medication-dashboard__upcomingRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  background: transparent;
+  text-align: left;
+  border-bottom: 1px solid #eff3f9;
+}
+
+.medication-dashboard__upcomingRow:last-child {
+  border-bottom: none;
+}
+
+.medication-dashboard__upcomingRow div {
+  flex: 1;
+}
+
+.medication-dashboard__upcomingRow span {
+  margin-top: 4px;
+  color: #98a7be;
+}
+
+.medication-dashboard__chevron {
+  color: #d1d9e7;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .medication-dashboard__hero,
+  .medication-dashboard__panel--progress,
+  .medication-dashboard__scheduleHeader,
+  .medication-dashboard__item,
+  .medication-dashboard__sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .medication-dashboard__form {
+    grid-template-columns: 1fr;
+  }
+
+  .medication-dashboard__hero {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .medication-dashboard__hero,
+  .medication-dashboard__panel {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .medication-dashboard__days {
+    gap: 10px;
+  }
+
+  .medication-dashboard__day {
+    min-width: 48px;
+    padding: 11px 14px;
+  }
+}
