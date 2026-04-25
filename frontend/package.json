@@ -23,8 +23,8 @@
     "web-vitals": "^2.1.4"
   },
   "overrides": {
-    "svgo": "^3.0.0",
-    "eslint": "^8.57.1"
+    "svgo": "^3.0.2",
+    "eslint": "^8.54.0"
   },
   "scripts": {
     "start": "react-scripts start",
