@@ -18,6 +18,5 @@
       "dest": "frontend/build/index.html"
     }
   ],
-  "functions": {},
   "cleanUrls": true
 }
