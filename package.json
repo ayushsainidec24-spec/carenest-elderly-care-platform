@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "concurrently \"npm start --prefix backend\" \"cross-env PORT=3001 npm start --prefix frontend\"",
     "build": "npm --prefix frontend run build",
-    "build:frontend": "npm --prefix frontend run build",
-    "start": "npm run build:frontend && npm start --prefix backend"
+    "start": "npm start --prefix backend"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",

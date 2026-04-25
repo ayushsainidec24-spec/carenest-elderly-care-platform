@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "installCommand": "npm ci --prefer-offline --no-audit --progress=false --prefix frontend",
-  "buildCommand": "npm --prefix frontend run build",
   "builds": [
     {
       "src": "frontend/package.json",
@@ -19,6 +14,5 @@
       "src": "^/(?!api).*",
       "dest": "frontend/build/index.html"
     }
-  ],
-  "cleanUrls": true
+  ]
 }
