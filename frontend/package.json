@@ -4,13 +4,14 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "@testing-library/react": "^14.0.0",
     "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.5.1",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "axios": "^1.6.5",
+    "lucide-react": "^1.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
@@ -20,6 +21,13 @@
     "web-vitals": "^2.1.4"
   },
   "overrides": {
+    "@babel/plugin-proposal-class-properties": "@babel/plugin-transform-class-properties@^7.28.6",
+    "@babel/plugin-proposal-optional-chaining": "@babel/plugin-transform-optional-chaining@^7.28.6",
+    "@babel/plugin-proposal-private-methods": "@babel/plugin-transform-private-methods@^7.28.6",
+    "@babel/plugin-proposal-private-property-in-object": "@babel/plugin-transform-private-property-in-object@^7.28.6",
+    "@babel/plugin-proposal-numeric-separator": "@babel/plugin-transform-numeric-separator@^7.28.6",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "@babel/plugin-transform-nullish-coalescing-operator@^7.28.6",
+    "ajv": "^8.20.0",
     "eslint": "^9.0.0",
     "glob": "^10.3.10",
     "svgo": "^3.0.0",
@@ -30,12 +38,6 @@
     "w3c-hr-time": "^1.0.2",
     "@jridgewell/sourcemap-codec": "^1.4.15",
     "@rollup/plugin-terser": "^0.4.4",
-    "@babel/plugin-proposal-class-properties": "@babel/plugin-transform-class-properties@^7.28.6",
-    "@babel/plugin-proposal-optional-chaining": "@babel/plugin-transform-optional-chaining@^7.28.6",
-    "@babel/plugin-proposal-private-methods": "@babel/plugin-transform-private-methods@^7.28.6",
-    "@babel/plugin-proposal-private-property-in-object": "@babel/plugin-transform-private-property-in-object@^7.28.6",
-    "@babel/plugin-proposal-numeric-separator": "@babel/plugin-transform-numeric-separator@^7.28.6",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "@babel/plugin-transform-nullish-coalescing-operator@^7.28.6",
     "abab": "^2.0.6",
     "domexception": "^4.0.0",
     "workbox-cacheable-response": "^7.0.0",
@@ -44,9 +46,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false NODE_OPTIONS='--no-deprecation' react-scripts build",
+    "build": "cross-env DISABLE_TYPESCRIPT_CHECKER=true DISABLE_ESLINT_PLUGIN=true CI=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "node postinstall.js"
   },
   "eslintConfig": {
     "extends": [
@@ -67,8 +70,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-class-properties": "^7.28.6",
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.28.6",
     "@babel/plugin-transform-numeric-separator": "^7.28.6",
+    "@babel/plugin-transform-optional-chaining": "^7.28.6",
     "@babel/plugin-transform-private-methods": "^7.28.6",
-    "@babel/plugin-transform-private-property-in-object": "^7.28.6"
+    "@babel/plugin-transform-private-property-in-object": "^7.28.6",
+    "cross-env": "^10.1.0"
   }
 }

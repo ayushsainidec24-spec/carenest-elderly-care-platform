@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Mail, Lock, Eye, EyeOff, Heart, Circle, Facebook } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Heart, Circle, Share2 } from "lucide-react";
 import axios from "axios";
 import "./AuthPages.css";
 import { useGoogleAuth } from "./useGoogleAuth";
@@ -159,7 +159,7 @@ export function LoginRedesign() {
               <span>{googleLoading ? "Opening Google..." : "Google"}</span>
             </button>
             <button type="button" className="auth-social">
-              <Facebook size={18} className="auth-social__mark auth-social__mark--facebook" />
+              <Share2 size={18} className="auth-social__mark auth-social__mark--facebook" />
               <span>Facebook</span>
             </button>
           </div>
