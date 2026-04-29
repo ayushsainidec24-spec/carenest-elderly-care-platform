@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { User, Mail, Lock, Eye, EyeOff, Heart, Circle } from "lucide-react";
-import axios from "axios";
+import api from "../api";
 import "./AuthPages.css";
 import { useGoogleAuth } from "./useGoogleAuth";
 
@@ -38,7 +38,7 @@ export function SignupRedesign() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", {
+      const response = await api.post("/auth/register", {
         name: formData.name,
         email: formData.email,
         password: formData.password,

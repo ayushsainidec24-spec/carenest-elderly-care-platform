@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { User, Mail, Lock, Eye, EyeOff, LogIn, Heart, Shield, Stethoscope, Activity, Users, Clock, CheckCircle } from "lucide-react";
-import axios from "axios";
+import api from "../api";
 
 export function Login() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export function Login() {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", formData);
+      const response = await api.post("/auth/login", formData);
       if (response.data.error) {
         setError(response.data.error);
       } else {

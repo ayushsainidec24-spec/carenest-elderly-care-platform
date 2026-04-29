@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import api from "../api";
 
 const GOOGLE_SCRIPT_ID = "google-identity-services";
 const GOOGLE_SCRIPT_SRC = "https://accounts.google.com/gsi/client";
@@ -61,7 +62,7 @@ export function useGoogleAuth(onSuccess) {
                 },
               });
 
-              const result = await axios.post("/api/auth/google", {
+              const result = await api.post("/auth/google", {
                 googleProfile: profileResponse.data,
               });
 

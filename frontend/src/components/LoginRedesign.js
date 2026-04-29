@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Mail, Lock, Eye, EyeOff, Heart, Circle, Share2 } from "lucide-react";
-import axios from "axios";
+import api from "../api";
 import "./AuthPages.css";
 import { useGoogleAuth } from "./useGoogleAuth";
 
@@ -29,7 +29,7 @@ export function LoginRedesign() {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", formData);
+      const response = await api.post("/auth/login", formData);
       if (response.data.error) {
         setError(response.data.error);
       } else {
