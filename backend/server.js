@@ -49,9 +49,9 @@ app.get("/test", (req, res) => {
 // run on the same port.
 const frontendDir = path.join(__dirname, "..", "frontend");
 const buildCandidates = [
-  path.join(__dirname, "..", "frontend-dist"),
-  path.join(frontendDir, "dist"),
   path.join(frontendDir, "build"),
+  path.join(frontendDir, "dist"),
+  path.join(__dirname, "..", "frontend-dist"),
 ];
 const buildPath = buildCandidates.find((candidate) => fs.existsSync(candidate));
 
