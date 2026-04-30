@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { getCurrentUser } from "../utils/auth";
 import "./TopBar.css";
 
 export default function TopBar() {
@@ -9,7 +10,7 @@ export default function TopBar() {
     navigate("/login");
   };
 
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const user = getCurrentUser();
 
   return (
     <header className="topbar">

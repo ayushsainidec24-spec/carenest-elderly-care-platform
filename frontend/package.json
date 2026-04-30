@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "packageManager": "npm@9.0.0",
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -35,21 +36,7 @@
     "@babel/plugin-proposal-numeric-separator": "@babel/plugin-transform-numeric-separator@^7.28.6",
     "@babel/plugin-proposal-nullish-coalescing-operator": "@babel/plugin-transform-nullish-coalescing-operator@^7.28.6",
     "ajv": "^8.20.0",
-    "eslint": "^9.0.0",
-    "glob": "^10.3.10",
-    "svgo": "^3.0.0",
-    "source-map": "^0.7.4",
-    "rimraf": "^4.0.0",
-    "sourcemap-codec": "^1.4.8",
-    "whatwg-encoding": "^2.0.0",
-    "w3c-hr-time": "^1.0.2",
-    "@jridgewell/sourcemap-codec": "^1.4.15",
-    "@rollup/plugin-terser": "^0.4.4",
-    "abab": "^2.0.6",
-    "domexception": "^4.0.0",
-    "workbox-cacheable-response": "^7.0.0",
-    "workbox-google-analytics": "^7.0.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "eslint": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -45,7 +45,7 @@ app.get("/test", (req, res) => {
   res.send("ok");
 });
 
-app.get("*", (req, res, next) => {
+app.get(/.*/, (req, res, next) => {
   if (req.path.startsWith("/api")) return next();
 
   res.sendFile(path.resolve(__dirname, "..", "frontend", "build", "index.html"));
