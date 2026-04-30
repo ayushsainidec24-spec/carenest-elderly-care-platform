@@ -1,22 +1,18 @@
 {
   "version": 2,
-  "env": {
-    "NODE_ENV": "production"
-  },
   "builds": [
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "frontend-dist"
+        "distDir": "build"
       }
     }
   ],
   "routes": [
     {
       "src": "^/(?!api).*",
-      "dest": "frontend-dist/index.html"
+      "dest": "/index.html"
     }
-  ],
-  "cleanUrls": true
+  ]
 }
