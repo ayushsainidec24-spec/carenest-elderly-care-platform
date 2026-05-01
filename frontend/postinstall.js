@@ -63,6 +63,7 @@ if (fs.existsSync(babelCreateFile)) {
     content = content.replace(/@babel\/plugin-proposal-private-property-in-object/g, '@babel/plugin-transform-private-property-in-object');
     content = content.replace(/@babel\/plugin-proposal-numeric-separator/g, '@babel/plugin-transform-numeric-separator');
     content = content.replace(/@babel\/plugin-proposal-optional-chaining/g, '@babel/plugin-transform-optional-chaining');
+    content = content.replace(/@babel\/plugin-proposal-nullish-coalescing-operator/g, '@babel/plugin-transform-nullish-coalescing-operator');
     // Comment out decorators as it's not available
     if (content.includes('plugin-proposal-decorators') || content.includes('plugin-transform-decorators')) {
       content = content.replace(/isTypeScriptEnabled && \[\s*require\('@babel\/plugin-(?:proposal|transform)-decorators'\)\.default,\s*false,\s*\],/,
