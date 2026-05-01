@@ -24,7 +24,7 @@ export function SignupRedesign() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { googleError, googleLoading, startGoogleSignIn } = useGoogleAuth(() => navigate("/dashboard"));
+  const { googleReady, googleError, googleLoading, startGoogleSignIn } = useGoogleAuth(() => navigate("/dashboard"));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -191,7 +191,7 @@ export function SignupRedesign() {
               type="button"
               className="auth-social"
               onClick={startGoogleSignIn}
-              disabled={googleLoading}
+              disabled={!googleReady || googleLoading}
             >
               <span className="auth-social__mark auth-social__mark--google">
                 <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
@@ -201,7 +201,7 @@ export function SignupRedesign() {
                   <path d="M12 6.18c1.62 0 3.08.56 4.23 1.66l3.17-3.17C17.47 2.66 14.97 2 12 2 7.72 2 3.98 4.05 2.2 7.38l3.67 2.82C6.73 8.1 9.15 6.18 12 6.18z" fill="#EA4335" />
                 </svg>
               </span>
-              <span>{googleLoading ? "Opening Google..." : "Google"}</span>
+              <span>{!googleReady ? "Loading Google..." : googleLoading ? "Opening Google..." : "Google"}</span>
             </button>
           </div>
         </div>

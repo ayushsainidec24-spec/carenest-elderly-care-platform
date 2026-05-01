@@ -25,7 +25,7 @@ export default function App() {
           <Route
             path="/"
             element={
-              isAuthenticated ? <Navigate to="/dashboard" replace /> : <SignupRedesign />
+              isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginRedesign />
             }
           />
           <Route path="/login" element={<LoginRedesign />} />
