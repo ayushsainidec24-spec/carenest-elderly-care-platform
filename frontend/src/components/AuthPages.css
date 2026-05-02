@@ -253,9 +253,22 @@
   justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
+  width: 100%;
+}
+
+.auth-googleButton {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+}
+
+.auth-googleButton:empty {
+  display: none;
 }
 
 .auth-social {
+  min-width: 260px;
+  max-width: 100%;
   height: 58px;
   border-radius: 16px;
   border: 1.5px solid #ece7dd;
@@ -268,6 +281,11 @@
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+.auth-social--google {
+  border-color: #dbe1e9;
+  background: #fff;
 }
 
 .auth-social:disabled {
@@ -284,10 +302,6 @@
 .auth-social__mark--google {
   font-weight: 800;
   color: #db4437;
-}
-
-.auth-social__mark--facebook {
-  color: #1877f2;
 }
 
 .auth-error {

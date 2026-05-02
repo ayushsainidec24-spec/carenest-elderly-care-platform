@@ -7,31 +7,81 @@ const GOOGLE_CLIENT_ID =
 
 router.post("/register", (req,res)=>{
 
-const {name,email,password} = req.body;
+const name = String(req.body.name || "").trim();
+const email = String(req.body.email || "").trim().toLowerCase();
+const password = String(req.body.password || "").trim();
 
-db.run(
-"INSERT INTO users(name,email,password,role) VALUES(?,?,?,?)",
-[name,email,password,"elderly"],
-function(err){
+if (!name || !email || !password) {
+  return res.status(400).send({ error: "Name, email, and password are required." });
+}
 
-if(err) return res.send(err);
+db.get(
+  "SELECT id FROM users WHERE LOWER(TRIM(email)) = ?",
+  [email],
+  (existingErr, existingUser) => {
+    if (existingErr) {
+      return res.status(500).send({ error: "Registration failed. Please try again." });
+    }
 
-res.send({message:"User registered"});
-});
+    if (existingUser) {
+      return res.status(409).send({ error: "This email is already registered. Please log in." });
+    }
+
+    db.run(
+    "INSERT INTO users(name,email,password,role) VALUES(?,?,?,?)",
+    [name,email,password,"elderly"],
+    function(err){
+      if (err) {
+        return res.send({
+          error:
+            err.message || "Registration failed. Please check your details and try again.",
+        });
+      }
+
+      db.get(
+        "SELECT * FROM users WHERE id = ?",
+        [this.lastID],
+        (fetchErr, createdUser) => {
+          if (fetchErr || !createdUser) {
+            return res.send({ error: "Registration completed but user could not be loaded." });
+          }
+
+          res.send({ message: "User registered", user: createdUser });
+        }
+      );
+    });
+  }
+);
 });
 
 router.post("/login",(req,res)=>{
 
-const {email,password} = req.body;
+const email = String(req.body.email || "").trim().toLowerCase();
+const password = String(req.body.password || "").trim();
+
+if (!email || !password) {
+  return res.status(400).send({ error: "Email and password are required." });
+}
 
 db.get(
-"SELECT * FROM users WHERE email=? AND password=?",
-[email,password],
+"SELECT * FROM users WHERE LOWER(TRIM(email)) = ?",
+[email],
 (err,row)=>{
+  if (err) {
+    return res.send({ error: "Login failed. Please try again." });
+  }
 
-if(!row) return res.send({error:"Invalid login"});
+  if (!row) {
+    return res.status(404).send({
+      error: "No account found with this email. Please sign up first, then log in.",
+    });
+  }
 
-res.send(row);
+  if (String(row.password || "").trim() !== password) {
+    return res.status(401).send({ error: "Incorrect password. Please try again." });
+  }
+
+  res.send(row);
 });
 });
 
@@ -50,18 +100,27 @@ router.post("/google", async (req, res) => {
     let googleUser = googleProfile;
 
     if (!googleUser && credential) {
-      const verifyResponse = await fetch(
-        `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`
-      );
+      let verifyResponse;
+
+      try {
+        verifyResponse = await fetch(
+          `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`
+        );
+      } catch (error) {
+        return res.status(502).send({
+          error:
+            "The server could not reach Google to verify this login. Check your internet connection and try again.",
+        });
+      }
 
       if (!verifyResponse.ok) {
-        return res.send({ error: "Google token verification failed." });
+        return res.status(401).send({ error: "Google token verification failed." });
       }
 
       googleUser = await verifyResponse.json();
 
       if (googleUser.aud !== GOOGLE_CLIENT_ID) {
-        return res.send({ error: "Google client mismatch." });
+        return res.status(401).send({ error: "Google client mismatch." });
       }
     }
 

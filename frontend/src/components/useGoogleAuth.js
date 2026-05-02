@@ -1,18 +1,27 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import api from "../api";
 
 const GOOGLE_SCRIPT_ID = "google-identity-services";
 const GOOGLE_SCRIPT_SRC = "https://accounts.google.com/gsi/client";
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || "";
 
+let googleScriptPromise = null;
+
 function loadGoogleScript() {
-  return new Promise((resolve, reject) => {
+  if (googleScriptPromise) {
+    return googleScriptPromise;
+  }
+
+  googleScriptPromise = new Promise((resolve, reject) => {
     const existing = document.getElementById(GOOGLE_SCRIPT_ID);
-    if (existing) {
-      if (window.google?.accounts?.oauth2) resolve();
-      else existing.addEventListener("load", () => resolve(), { once: true });
+    if (existing && window.google?.accounts?.id) {
+      resolve();
       return;
+    }
+
+    if (existing && !window.google?.accounts?.id) {
+      // If the script is present but not initialized, remove and reload it.
+      existing.remove();
     }
 
     const script = document.createElement("script");
@@ -20,21 +29,52 @@ function loadGoogleScript() {
     script.src = GOOGLE_SCRIPT_SRC;
     script.async = true;
     script.defer = true;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Failed to load Google Identity Services."));
+
+    const handleInit = () => {
+      let attempts = 0;
+      const maxAttempts = 30;
+      const checkInterval = 150;
+
+      const checkGoogle = () => {
+        if (window.google?.accounts?.id) {
+          clearInterval(interval);
+          resolve();
+          return;
+        }
+
+        attempts += 1;
+        if (attempts >= maxAttempts) {
+          clearInterval(interval);
+          reject(new Error("Google Identity Services did not initialize after script load. Please ensure popups are allowed and your browser is not blocking Google.") );
+        }
+      };
+
+      const interval = setInterval(checkGoogle, checkInterval);
+    };
+
+    script.onload = handleInit;
+    script.onerror = () => reject(new Error("Failed to load Google Identity Services script. Check your internet connection and browser settings."));
     document.body.appendChild(script);
   });
+
+  return googleScriptPromise;
 }
 
 export function useGoogleAuth(onSuccess) {
   const [googleReady, setGoogleReady] = useState(false);
   const [googleError, setGoogleError] = useState("");
+  const [showGoogleError, setShowGoogleError] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
-  const tokenClientRef = useRef(null);
+  const googleButtonRef = useRef(null);
+  const onSuccessRef = useRef(onSuccess);
+
+  onSuccessRef.current = onSuccess;
 
   useEffect(() => {
     if (!GOOGLE_CLIENT_ID) {
-      setGoogleError("Google login is not configured yet. Add REACT_APP_GOOGLE_CLIENT_ID first.");
+      setGoogleError("Google login is not configured yet. Add REACT_APP_GOOGLE_CLIENT_ID to your environment.");
+      setShowGoogleError(false);
+      setGoogleReady(false);
       return;
     }
 
@@ -42,78 +82,121 @@ export function useGoogleAuth(onSuccess) {
 
     loadGoogleScript()
       .then(() => {
-        if (!isMounted || !window.google?.accounts?.oauth2) return;
+        if (!isMounted || !window.google?.accounts?.id) {
+          setGoogleError("Google Identity Services failed to load. Please refresh the page.");
+          setShowGoogleError(false);
+          return;
+        }
 
-        tokenClientRef.current = window.google.accounts.oauth2.initTokenClient({
+        window.google.accounts.id.initialize({
           client_id: GOOGLE_CLIENT_ID,
-          scope: "openid email profile",
-          prompt: "select_account",
-          callback: async (tokenResponse) => {
-            if (tokenResponse?.error) {
+          callback: async (response) => {
+            setGoogleLoading(true);
+            if (!response?.credential) {
+              setGoogleError("Google sign-in did not return a valid credential. Please try again.");
+              setShowGoogleError(true);
               setGoogleLoading(false);
-              setGoogleError("Google login popup was closed or blocked. Please allow popups and try again.");
               return;
             }
 
             try {
-              const profileResponse = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-                headers: {
-                  Authorization: `Bearer ${tokenResponse.access_token}`,
-                },
-              });
-
               const result = await api.post("/auth/google", {
-                googleProfile: profileResponse.data,
+                credential: response.credential,
               });
 
               if (result.data.error) {
                 setGoogleError(result.data.error);
+                setShowGoogleError(true);
                 return;
               }
 
               localStorage.setItem("user", JSON.stringify(result.data));
-              onSuccess(result.data);
+              onSuccessRef.current(result.data);
             } catch (error) {
-              setGoogleError("Google sign-in failed. Please try again.");
+              const isNetworkError =
+                error?.code === "ERR_NETWORK" || error?.message === "Network Error";
+              setGoogleError(
+                isNetworkError
+                  ? "Cannot connect to the backend server. Please start it with npm run dev and try Google login again."
+                  : error?.response?.data?.error ||
+                  error?.message ||
+                  "Google sign-in failed. Please try again."
+              );
+              setShowGoogleError(true);
             } finally {
               setGoogleLoading(false);
             }
           },
+          cancel_on_tap_outside: false,
         });
+
+        if (googleButtonRef.current) {
+          googleButtonRef.current.innerHTML = "";
+          window.google.accounts.id.renderButton(googleButtonRef.current, {
+            theme: "outline",
+            size: "large",
+            type: "standard",
+            text: "continue_with",
+            shape: "rectangular",
+            logo_alignment: "left",
+            width: 280,
+          });
+        }
 
         setGoogleReady(true);
       })
-      .catch(() => {
+      .catch((error) => {
         if (isMounted) {
-          setGoogleError("Could not load Google sign-in.");
+          setGoogleReady(false);
+          setGoogleError(
+            error?.message || "Could not load Google sign-in. Please check your internet connection."
+          );
+          setShowGoogleError(false);
         }
       });
 
     return () => {
       isMounted = false;
     };
-  }, [onSuccess]);
+  }, []);
 
   const startGoogleSignIn = () => {
     if (!GOOGLE_CLIENT_ID) {
       setGoogleError("Google login is not configured yet. Add REACT_APP_GOOGLE_CLIENT_ID first.");
+      setShowGoogleError(true);
       return;
     }
 
-    if (!tokenClientRef.current) {
+    if (!window.google?.accounts?.id) {
       setGoogleError("Google sign-in is still loading. Please try again.");
+      setShowGoogleError(true);
       return;
     }
 
     setGoogleError("");
+    setShowGoogleError(false);
     setGoogleLoading(true);
-    tokenClientRef.current.requestAccessToken({ prompt: "select_account" });
+
+    try {
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          setGoogleLoading(false);
+        }
+      });
+    } catch (error) {
+      setGoogleLoading(false);
+      setGoogleError(
+        error?.message || "Google sign-in could not start. Please refresh and try again."
+      );
+      setShowGoogleError(true);
+    }
   };
 
   return {
     googleReady,
-    googleError,
+    googleError: showGoogleError ? googleError : "",
     googleLoading,
+    googleButtonRef,
     startGoogleSignIn,
   };
 }

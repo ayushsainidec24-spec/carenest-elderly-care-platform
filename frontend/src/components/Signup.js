@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, UserPlus, Heart, Users, Activity, Shield } from "lucide-react";
 import api from "../api";
+import { useGoogleAuth } from "./useGoogleAuth";
 
 export function Signup() {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ export function Signup() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const goToDashboard = () => navigate("/dashboard", { replace: true });
+  const { googleError, googleLoading, startGoogleSignIn } = useGoogleAuth(goToDashboard);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,14 +32,16 @@ export function Signup() {
 
     try {
       const response = await api.post("/auth/register", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        password: formData.password.trim()
       });
 
-      if (response.data.message) {
-        // Registration successful, redirect to login
-        navigate("/login");
+      if (response.data.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        goToDashboard();
+      } else if (response.data.message) {
+        navigate("/login", { replace: true });
       } else {
         setError("Registration failed. Please try again.");
       }
@@ -251,6 +256,41 @@ export function Signup() {
                 )}
               </button>
             </form>
+
+            <div className="text-center my-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-4 bg-white text-gray-500">or continue with</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={startGoogleSignIn}
+              disabled={googleLoading}
+              className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-200 hover:border-gray-300 text-gray-700 font-semibold py-4 px-6 rounded-xl transition-all duration-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21.35 11.1H12v2.8h5.4c-.25 1.4-1.05 2.54-2.23 3.32v2.76h3.6c2.1-1.94 3.3-4.72 3.3-8.28 0-.56-.05-1.1-.15-1.62z" fill="#4285F4" />
+                <path d="M12 22c2.97 0 5.47-1 7.3-2.7l-3.6-2.76c-.98.66-2.23 1.06-3.7 1.06-2.85 0-5.27-1.92-6.13-4.5H2.2v2.82C3.98 19.95 7.72 22 12 22z" fill="#34A853" />
+                <path d="M5.87 13.8a7.48 7.48 0 010-3.6V7.38H2.2a11.96 11.96 0 000 9.24l3.67-2.82z" fill="#FBBC05" />
+                <path d="M12 6.18c1.62 0 3.08.56 4.23 1.66l3.17-3.17C17.47 2.66 14.97 2 12 2 7.72 2 3.98 4.05 2.2 7.38l3.67 2.82C6.73 8.1 9.15 6.18 12 6.18z" fill="#EA4335" />
+              </svg>
+              <span>{googleLoading ? "Connecting to Google..." : "Continue with Google"}</span>
+            </button>
+
+            {(error || googleError) && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center mt-4">
+                <div className="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                  <span className="text-red-600 text-xs">⚠</span>
+                </div>
+                <p className="text-red-700 text-sm font-medium">{error || googleError}</p>
+              </div>
+            )}
 
             <div className="text-center mt-8">
               <p className="text-gray-600">

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import { Mail, Lock, Eye, EyeOff, Heart, Circle, Share2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Mail, Lock, Eye, EyeOff, Heart, Circle } from "lucide-react";
 import api from "../api";
 import "./AuthPages.css";
 import { useGoogleAuth } from "./useGoogleAuth";
@@ -21,7 +21,8 @@ export function LoginRedesign() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { googleReady, googleError, googleLoading, startGoogleSignIn } = useGoogleAuth(() => navigate("/dashboard"));
+  const goToDashboard = () => navigate("/dashboard", { replace: true });
+  const { googleReady, googleError, googleLoading, googleButtonRef, startGoogleSignIn } = useGoogleAuth(goToDashboard);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,15 +30,20 @@ export function LoginRedesign() {
     setError("");
 
     try {
-      const response = await api.post("/auth/login", formData);
+      const response = await api.post("/auth/login", {
+        email: formData.email.trim().toLowerCase(),
+        password: formData.password.trim(),
+      });
       if (response.data.error) {
         setError(response.data.error);
       } else {
         localStorage.setItem("user", JSON.stringify(response.data));
-        navigate("/");
+        goToDashboard();
       }
     } catch (err) {
-      setError("Login failed. Please try again.");
+      setError(
+        err?.response?.data?.error || err?.message || "Login failed. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -142,26 +148,17 @@ export function LoginRedesign() {
           </div>
 
           <div className="auth-socials">
-            <button
-              type="button"
-              className="auth-social"
-              onClick={startGoogleSignIn}
-              disabled={!googleReady || googleLoading}
-            >
-              <span className="auth-social__mark auth-social__mark--google">
-                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M21.35 11.1H12v2.8h5.4c-.25 1.4-1.05 2.54-2.23 3.32v2.76h3.6c2.1-1.94 3.3-4.72 3.3-8.28 0-.56-.05-1.1-.15-1.62z" fill="#4285F4" />
-                  <path d="M12 22c2.97 0 5.47-1 7.3-2.7l-3.6-2.76c-.98.66-2.23 1.06-3.7 1.06-2.85 0-5.27-1.92-6.13-4.5H2.2v2.82C3.98 19.95 7.72 22 12 22z" fill="#34A853" />
-                  <path d="M5.87 13.8a7.48 7.48 0 010-3.6V7.38H2.2a11.96 11.96 0 000 9.24l3.67-2.82z" fill="#FBBC05" />
-                  <path d="M12 6.18c1.62 0 3.08.56 4.23 1.66l3.17-3.17C17.47 2.66 14.97 2 12 2 7.72 2 3.98 4.05 2.2 7.38l3.67 2.82C6.73 8.1 9.15 6.18 12 6.18z" fill="#EA4335" />
-                </svg>
-              </span>
-              <span>{!googleReady ? "Loading Google..." : googleLoading ? "Opening Google..." : "Google"}</span>
-            </button>
-            <button type="button" className="auth-social">
-              <Share2 size={18} className="auth-social__mark auth-social__mark--facebook" />
-              <span>Facebook</span>
-            </button>
+            <div ref={googleButtonRef} className="auth-googleButton" />
+            {!googleReady && (
+              <button
+                type="button"
+                className="auth-social auth-social--google"
+                onClick={startGoogleSignIn}
+                disabled={!googleReady || googleLoading}
+              >
+                <span>{googleLoading ? "Opening Google..." : "Loading Google..."}</span>
+              </button>
+            )}
           </div>
         </div>
       </section>

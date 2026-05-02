@@ -66,6 +66,11 @@ db.get("SELECT COUNT(*) AS count FROM caregivers", (err, row) => {
   insert.finalize();
 });
 
+db.run(
+  "INSERT OR IGNORE INTO users(name,email,password,role) VALUES(?,?,?,?)",
+  ["Demo User", "demo@carenest.com", "demo123", "elderly"]
+);
+
 });
 
 module.exports = db;

@@ -1,4 +1,13 @@
 node_modules
 frontend-dist
 backend/carenest.db
+carenest.db
 *.log
+.venv
+.chrome-pdf-profile/
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+frontend/public/.env*

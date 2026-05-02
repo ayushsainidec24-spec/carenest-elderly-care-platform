@@ -4,8 +4,9 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 
-const envPath = path.join(__dirname, ".env");
-if (fs.existsSync(envPath)) {
+function loadEnvFile(envPath) {
+  if (!fs.existsSync(envPath)) return;
+
   const envLines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
   for (const line of envLines) {
     const trimmed = line.trim();
@@ -19,6 +20,9 @@ if (fs.existsSync(envPath)) {
     }
   }
 }
+
+loadEnvFile(path.resolve(__dirname, "..", ".env"));
+loadEnvFile(path.join(__dirname, ".env"));
 
 const authRoutes = require("./routes/auth");
 const caregiverRoutes = require("./routes/caregiver");
