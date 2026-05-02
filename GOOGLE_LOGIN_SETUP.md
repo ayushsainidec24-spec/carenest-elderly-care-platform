@@ -54,6 +54,7 @@ If Google shows **Access blocked**, fix these settings in Google Cloud Console:
 2. In **Authorized JavaScript origins**, add the exact local site you open in the browser:
 
 ```text
+https://carenest-elderly-care-platform-5pilt0bqm.vercel.app
 http://localhost:3001
 http://localhost:3000
 http://127.0.0.1:3001

@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import api from "../api";
+import { createGoogleUserFromCredential, saveCurrentUser } from "../utils/localAuth";
 
 const GOOGLE_SCRIPT_ID = "google-identity-services";
 const GOOGLE_SCRIPT_SRC = "https://accounts.google.com/gsi/client";
-const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || "";
+const GOOGLE_CLIENT_ID =
+  process.env.REACT_APP_GOOGLE_CLIENT_ID ||
+  "800390762971-hpf901a795999hko96759ltapm6oudlr.apps.googleusercontent.com";
 
 let googleScriptPromise = null;
 
@@ -110,14 +113,23 @@ export function useGoogleAuth(onSuccess) {
                 return;
               }
 
-              localStorage.setItem("user", JSON.stringify(result.data));
+              saveCurrentUser(result.data);
               onSuccessRef.current(result.data);
             } catch (error) {
               const isNetworkError =
                 error?.code === "ERR_NETWORK" || error?.message === "Network Error";
+
+              if (isNetworkError) {
+                const localGoogleUser = createGoogleUserFromCredential(response.credential);
+                if (localGoogleUser) {
+                  onSuccessRef.current(localGoogleUser);
+                  return;
+                }
+              }
+
               setGoogleError(
                 isNetworkError
-                  ? "Cannot connect to the backend server. Please start it with npm run dev and try Google login again."
+                  ? "Google sign-in worked, but the backend is not reachable. Please try again shortly."
                   : error?.response?.data?.error ||
                   error?.message ||
                   "Google sign-in failed. Please try again."

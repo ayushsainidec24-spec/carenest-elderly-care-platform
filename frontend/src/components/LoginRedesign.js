@@ -4,6 +4,7 @@ import { Mail, Lock, Eye, EyeOff, Heart, Circle } from "lucide-react";
 import api from "../api";
 import "./AuthPages.css";
 import { useGoogleAuth } from "./useGoogleAuth";
+import { loginLocalUser, saveCurrentUser } from "../utils/localAuth";
 
 const FEATURES = [
   "24/7 Emergency Support",
@@ -37,10 +38,23 @@ export function LoginRedesign() {
       if (response.data.error) {
         setError(response.data.error);
       } else {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        saveCurrentUser(response.data);
         goToDashboard();
       }
     } catch (err) {
+      const isNetworkError =
+        err?.code === "ERR_NETWORK" || err?.message === "Network Error";
+
+      if (isNetworkError) {
+        const localResult = loginLocalUser(formData.email, formData.password);
+        if (localResult.user) {
+          goToDashboard();
+        } else {
+          setError(localResult.error);
+        }
+        return;
+      }
+
       setError(
         err?.response?.data?.error || err?.message || "Login failed. Please try again."
       );

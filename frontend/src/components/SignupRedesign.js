@@ -4,6 +4,7 @@ import { User, Mail, Lock, Eye, EyeOff, Heart, Circle } from "lucide-react";
 import api from "../api";
 import "./AuthPages.css";
 import { useGoogleAuth } from "./useGoogleAuth";
+import { registerLocalUser, saveCurrentUser } from "../utils/localAuth";
 
 const FEATURES = [
   "Personalized Care Plans",
@@ -65,7 +66,7 @@ export function SignupRedesign() {
       });
 
       if (response.data.user) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        saveCurrentUser(response.data.user);
         goToDashboard();
       } else if (response.data.message) {
         navigate("/login");
@@ -73,6 +74,24 @@ export function SignupRedesign() {
         setError("Registration failed. Please try again.");
       }
     } catch (err) {
+      const isNetworkError =
+        err?.code === "ERR_NETWORK" || err?.message === "Network Error";
+
+      if (isNetworkError) {
+        const localResult = registerLocalUser({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (localResult.user) {
+          goToDashboard();
+        } else {
+          setError(localResult.error);
+        }
+        return;
+      }
+
       setError(
         err?.response?.data?.error || err?.message || "Registration failed. Please try again."
       );

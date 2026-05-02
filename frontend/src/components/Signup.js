@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff, UserPlus, Heart, Users, Activity, Shield } from "lucide-react";
 import api from "../api";
 import { useGoogleAuth } from "./useGoogleAuth";
+import { registerLocalUser, saveCurrentUser } from "../utils/localAuth";
 
 export function Signup() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export function Signup() {
       });
 
       if (response.data.user) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        saveCurrentUser(response.data.user);
         goToDashboard();
       } else if (response.data.message) {
         navigate("/login", { replace: true });
@@ -46,6 +47,24 @@ export function Signup() {
         setError("Registration failed. Please try again.");
       }
     } catch (err) {
+      const isNetworkError =
+        err?.code === "ERR_NETWORK" || err?.message === "Network Error";
+
+      if (isNetworkError) {
+        const localResult = registerLocalUser({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (localResult.user) {
+          goToDashboard();
+        } else {
+          setError(localResult.error);
+        }
+        return;
+      }
+
       setError("Registration failed. Please try again.");
     } finally {
       setLoading(false);
